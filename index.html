@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive.ninja</title>
+<script>
+function archive() {
+        const url = new URL(location.href);
+        const target = url.searchParams.get("target")
+        if (target == null) { return }
+        const archivetoday = 'http://archive.today/?run=1&url='+target
+        const archiveorg = 'https://web.archive.org/save/'+target
+        document.getElementById('archivetoday').innerHTML = 'Opening new window for http://archive.today/?run=1&url=' + target
+        document.getElementById('archiveorg').innerHTML = 'Opening new window for https://web.archive.org/save/' + target
+
+        window.open(archivetoday, "_blank");
+        window.open(archiveorg, "_blank");
+}
+
+function showCopyTooltip() {
+    const copytooltip = document.getElementById('copytooltip')
+    copytooltip.style.visibility = 'visible';
+    copytooltip.style.opacity = 1;
+    setTimeout(function() {
+        let copytooltip = document.getElementById('copytooltip')
+        copytooltip.style.visibility = 'hidden';
+        copytooltip.style.opacity = 0;
+    }, 3000);
+}
+
+function copyBookmarklet() {
+    const bookmarklet = document.getElementById('bookmarklet')
+    console.log(bookmarklet.value)
+    bookmarklet.select();
+    document.execCommand('copy');
+    showCopyTooltip();
+}
+
+window.onload=archive;
+</script>
+<style>
+body {
+    margin: 0;
+    background: #5B616A;
+    color: #FCF7F8;
+    font-family: "Lucida Console", Monaco, monospace;
+
+}
+.box.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.content {
+    display: block;
+    text-align: center;
+    max-width: 1000px;
+}
+#header  {
+    font-weight: bolder;
+    font-size: 2rem;
+    padding-bottom: 1rem;
+}
+#usageText {
+    padding: 1rem;
+}
+.row {
+    width: 100%;
+
+}
+#bookmarklet {
+    width: 88%;
+    height: 2rem;
+    vertical-align: middle;
+}
+#copyicon {
+    height: 2rem;
+    vertical-align: middle;
+    cursor: pointer;
+    padding-left: 0.5rem;
+}
+#footer {
+    margin-top: 2rem;
+}
+#footer>a {
+    color: #FCF7F8;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:active .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+</style>
+<body>
+<div class="box flex">
+    <div class="content">
+        <div id="header">Archive.ninja</div>
+        <div id="popupwarn">Archive.ninja uses javascript to open multiple windows to multiple archive sites, so you need to allow popups in your browser for archive.ninja.</div>
+        <div id="integrity">We don't rely on any third party javascript or resources and our code is available on github.</div>
+        <div id="usageText">To use archive.ninja, we recommend using a bookmarklet, which is a small bit of javascript that runs from your bookmarks bar. Copy and paste this code into a new bookmark on your bookmarks bar.</div>
+        <div class="row">
+            <textarea id="bookmarklet">
+javascript:(function(){let ninja=window.open('https://archive.ninja/?target='+location.href, '_blank'); setTimeout(function(){ninja.close()}, 3000);})();
+            </textarea>
+            <div class="tooltip">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="copy" class="svg-inline--fa fa-copy fa-w-14" id="copyicon" onclick="copyBookmarklet()" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg>
+                <span id="copytooltip" class="tooltiptext">Copied!</span>
+            </div>
+        </div>
+        <div id="archivetoday"></div>
+        <div id="archiveorg"></div>
+        <div id="footer">Made by <a href="https://twitter.com/0xdade">dade</a></div>
+    </div>
+</div>
+</body>
+</html>
