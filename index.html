@@ -59,13 +59,20 @@ body {
     text-align: center;
     max-width: 1000px;
 }
+.content>div {
+    padding: 1rem;
+}
 #header  {
     font-weight: bolder;
     font-size: 2rem;
     padding-bottom: 1rem;
+    background: rgb(0,212,255);
+    background: linear-gradient(270deg, rgba(0,212,255,1) 35%, rgba(203,246,255,1) 50%, rgba(0,212,255,1) 65%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 #usageText {
-    padding: 1rem;
+    margin-bottom: -1rem;
 }
 .row {
     width: 100%;
@@ -83,7 +90,7 @@ body {
     padding-left: 0.5rem;
 }
 #footer {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 #footer>a {
     color: #FCF7F8;
@@ -140,21 +147,24 @@ body {
 <div class="box flex">
     <div class="content">
         <div id="header">Archive.ninja</div>
-        <div id="popupwarn">Archive.ninja uses javascript to open multiple windows to multiple archive sites, so you need to allow popups in your browser for archive.ninja.</div>
-        <div id="integrity">We don't rely on any third party javascript or resources and our code is available on github.</div>
-        <div id="usageText">To use archive.ninja, we recommend using a bookmarklet, which is a small bit of javascript that runs from your bookmarks bar. Copy and paste this code into a new bookmark on your bookmarks bar.</div>
+        <div id="about">Archive.ninja is an intermediate site that is meant to be used to ease archival of webpages to multiple locations. It currently sends the target url to archive.org and archive.today.</div>
+        <div id="popupwarn">Archive.ninja uses javascript to open multiple windows to multiple archive sites. In order to do this, you need to allow popups in your browser for archive.ninja.</div>
+        <div id="usageText">archive.ninja reads the "target" parameter from the url. E.g.:</div>
+            <pre style="font-size: 1.2rem; font-weight:bold;">https://archive.ninja/?target=https://0xda.de</pre>
+        <div>The easiest way to use archive.ninja is to use the bookmarklet below. A bookmarklet is a small bit of javascript that runs from your bookmarks bar. Copy and paste this code into a new bookmark on your bookmarks bar.</div>
         <div class="row">
             <textarea id="bookmarklet">
 javascript:(function(){let ninja=window.open('https://archive.ninja/?target='+location.href, '_blank'); setTimeout(function(){ninja.close()}, 3000);})();
             </textarea>
             <div class="tooltip">
+                <!--Provided by fontawesome.com-->
                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="copy" class="svg-inline--fa fa-copy fa-w-14" id="copyicon" onclick="copyBookmarklet()" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg>
                 <span id="copytooltip" class="tooltiptext">Copied!</span>
             </div>
         </div>
         <div id="archivetoday"></div>
         <div id="archiveorg"></div>
-        <div id="footer">Made by <a href="https://twitter.com/0xdade">dade</a></div>
+        <div id="footer">Made by <a href="https://twitter.com/0xdade">dade</a> | <a href="https://github.com/0xdade/archive.ninja/">View Source</a></div>
     </div>
 </div>
 </body>
